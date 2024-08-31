@@ -25,7 +25,9 @@
         .showData {
             margin-top: 50px;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
         }
     </style>
 </head>
@@ -34,6 +36,26 @@
     <section class="showData">
         <h1>Dashboard</h1>
     </section>
+    <script>
+        let display = document.querySelector('.showData')
+        // IP HARDCODEADA (CAMBIAR!!!!!!!!!!!!!!!!!)
+        fetch('http://127.0.0.1/datos.json')
+            .then((res) => { return res.json() })
+            .then((data) => {
+                for (object of data) {
+                    for (dato in object) {
+                        let printData = document.createElement('h2')
+                        printData.textContent = `${dato}: ${object[dato]}`
+                        display.appendChild(printData)
+                    }
+                }
+            })
+            .catch(() => {
+                let errorMessage = document.createElement('h2')
+                errorMessage.textContent = 'Falló la conexion con el servidor adquisidor de datos'
+                display.appendChild(errorMessage)
+            })
+    </script>
 </body>
 
 </html>
