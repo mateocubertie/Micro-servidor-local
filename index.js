@@ -1,5 +1,6 @@
 let display = document.querySelector('.showData')
 // IP HARDCODEADA (CAMBIAR!!!!!!!!!!!!!!!!!)
+// TIENE QUE SER LA IP PRIVADA DE LA COMPU EN LA QUE CORRE EL SERVER
 fetch('http://127.0.0.1/datos.json')
     .then((res) => { return res.json() })
     .then((data) => {
