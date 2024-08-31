@@ -4,56 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="./style.css"> -->
-    <title>Document</title>
-    <!-- ! Copypastear de style.css (todavia no me sale pasarlo como archivo) -->
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            background: rgb(34, 34, 34);
-            font-family: "Inter", sans-serif;
-            color: white;
-        }
-
-        .showData {
-            margin-top: 50px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-        }
-    </style>
+    <link rel="stylesheet" href="./style.css">
+    <title>Dashboard | IoT</title>
 </head>
 
 <body>
     <section class="showData">
         <h1>Dashboard</h1>
     </section>
-    <script>
-        let display = document.querySelector('.showData')
-        // IP HARDCODEADA (CAMBIAR!!!!!!!!!!!!!!!!!)
-        fetch('http://127.0.0.1/datos.json')
-            .then((res) => { return res.json() })
-            .then((data) => {
-                for (dato in data) {
-                    let printData = document.createElement('h2')
-                    printData.textContent = `${dato}: ${data[dato]}`
-                    display.appendChild(printData)
-                }
-            })
-            .catch(() => {
-                let errorMessage = document.createElement('h2')
-                errorMessage.textContent = 'Falló la conexion con el servidor adquisidor de datos'
-                display.appendChild(errorMessage)
-            })
-    </script>
+    <script src="index.js"></script>
 </body>
 
 </html>
