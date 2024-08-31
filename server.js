@@ -1,16 +1,23 @@
-const http = require('node:http');
-const url = require('node:url')
+const http = require('http');
+const url = require('url')
+const fileSystem = require('fs');
+const path = require('path');
 
 const hostname = '127.0.0.1';
-const port = 3000;
+const port = 80;
 
 const server = http.createServer((req, res) => {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    let temperatura = url.parse(req.url, true).query
-    console.log(temperatura)
-    console.log(temperatura.temp)
-    res.end(`Temperatura: ${temperatura.temp}°C`, 'utf-8');
+    // __dirname -> variable de entorno de node.js con el path al directorio actual
+    var indexPath = path.join(__dirname, 'index.html');
+    var indexLength = fileSystem.statSync(indexPath);
+    res.writeHead(200, {
+        'Content-Type': 'text/html; charset: utf-8',
+        'Content-length': indexLength.size,
+    });
+    var readStream = fileSystem.createReadStream(indexPath);
+    // Inserta el archivo leido en el objeto Writable (respuesta)
+    readStream.pipe(res);
+
 });
 
 server.listen(port, hostname, () => {
