@@ -6,6 +6,8 @@ const path = require('path');
 // const hostname = '127.0.0.1';
 const port = 80;
 
+
+// __dirname -> variable de entorno de node.js con el path al directorio actual
 const dataPath = path.join(__dirname, 'datos.json')
 let dataFile = fileSystem.readFileSync(dataPath)
 
@@ -36,7 +38,6 @@ function updateData() {
 
 
 const server = http.createServer((req, res) => {
-    // __dirname -> variable de entorno de node.js con el path al directorio actual
     let parsedUrl = url.parse(req.url,true)
     if (req.url === '/datos.json') {
         updateData()
@@ -57,6 +58,7 @@ const server = http.createServer((req, res) => {
         for (dato in parsedQuery) {
             dataAppend(dato, parsedQuery[dato])
         }
+        updateData()
         res.writeHead(200, {'Content-type': 'text/plain'})
         res.write('Dato actualizado')
     }
