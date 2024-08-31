@@ -3,7 +3,7 @@ const url = require('url')
 const fileSystem = require('fs');
 const path = require('path');
 
-const hostname = '127.0.0.1';
+// const hostname = '127.0.0.1';
 const port = 80;
 
 const dataPath = path.join(__dirname, 'datos.json')
@@ -40,15 +40,15 @@ const server = http.createServer((req, res) => {
     let parsedUrl = url.parse(req.url,true)
     if (req.url === '/datos.json') {
         updateData()
-        res.setHeader('Content-type', 'application/json')
+        res.writeHead(200, {'Content-type': 'application/json'})
         res.write(dataFile)
     }
     else if (req.url === '/style.css') {
-        res.setHeader('Content-type', 'text/css')
+        res.writeHead(200, {'Content-type': 'text/css'})
         res.write(styleSheet)
     }
     else if (req.url === '/index.js') {
-        res.setHeader('Content-type', 'text/javascript')
+        res.writeHead(200, {'Content-type': 'text/javascript'})
         res.write(indexScript)
     }
     else if (parsedUrl.pathname === '/update') {
@@ -57,14 +57,16 @@ const server = http.createServer((req, res) => {
         for (dato in parsedQuery) {
             dataAppend(dato, parsedQuery[dato])
         }
+        res.writeHead(200, {'Content-type': 'text/plain'})
+        res.write('Dato actualizado')
     }
     else {
-        res.setHeader('Content-type', 'text/html; charset: utf-8')
+        res.writeHead(200, {'Content-type': 'text/html; charset: utf-8'})
         res.write(indexHTML)
     }
     res.end()
-});
+}).listen(port);
 
-server.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
-}); 
+// server.listen(port, hostname, () => {
+//     console.log(`Server running at http://${hostname}:${port}/`);
+// }); 
