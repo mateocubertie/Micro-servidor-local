@@ -8,7 +8,7 @@ printDatos()
 actualizarDatos()
 
 function printDatos() {
-    fetch('http://192.168.8.202/datos.json')
+    fetch('http://192.168.100.15/datos.json')
         .then((res) => { return res.json() })
         .then((data) => {
             display.innerHTML = "<h1>Dashboard</h1>"
